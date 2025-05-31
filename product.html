@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Products - Sandie Delice, Artisan bakery in Buea, Cameroon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #fff9f0; color: #5a3e2b; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background-color: #f8e8d5;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 100px; margin-right: 15px; }
+        .logo-text h1 { font-family: 'Brush Script MT', cursive; font-size: 32px; color: #d4a76a; margin-bottom: 5px; }
+        .logo-text p { font-size: 12px; color: #8c6e5d; }
+        .search-container { display: flex; align-items: center; margin-left: 20px; }
+        .search-bar { padding: 8px 15px; border-radius: 20px; border: 1px solid #d4a76a; width: 200px; transition: width 0.3s; }
+        .search-bar:focus { width: 250px; outline: none; border-color: #c0955a; }
+        .search-btn { background-color: #d4a76a; color: white; border: none; padding: 8px 15px; border-radius: 20px; margin-left: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .search-btn:hover { background-color: #c0955a; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 25px; }
+        nav ul li a { text-decoration: none; color: #5a3e2b; font-weight: 500; transition: color 0.3s; }
+        nav ul li a:hover { color: #d4a76a; }
+        .section-title { padding: 50px 0 10px 0; text-align: center; font-size: 60px; }
+        .product-hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px; display: flex; align-items: center; text-align: center; color: white; margin-bottom: 50px;
+        }
+        .container { padding-top: 100px; }
+        .product-hero-content { max-width: 800px; margin: 0 auto; }
+        .product-hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 300; }
+        .category-tabs { display: flex; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
+        .category-tab { padding: 10px 20px; margin: 0 10px 10px 0; background-color: #f8e8d5; border-radius: 30px; cursor: pointer; transition: all 0.3s; }
+        .category-tab:hover, .category-tab.active { background-color: #d4a76a; color: white; }
+        .category-section { margin-bottom: 50px; display: none; padding-top: 20px; }
+        .category-section.active { display: block; }
+        .category-title { font-size: 28px; color: #5a3e2b; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #d4a76a; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 30px; }
+        .product-card {
+            background-color: rgb(243, 216, 220);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+        .product-card:hover { transform: translateY(-10px); }
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #d4a76a;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .product-image { height: 200px; overflow: hidden; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .product-image img { transform: scale(1.1); }
+        .product-info { padding: 20px; }
+        .product-info h3 { font-size: 22px; margin-bottom: 10px; color: #5a3e2b; }
+        .product-info p { margin-bottom: 15px; color: #8c6e5d; font-size: 14px; }
+        .product-price { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-weight: bold; color: #d4a76a; font-size: 20px; }
+        .add-to-cart { background-color: #d4a76a; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; }
+        .add-to-cart:hover { background-color: #c0955a; }
+        .view-more { text-align: left; margin: 20px 0; }
+        .view-more-btn, .hide-btn {
+            display: inline-block;
+            background-color: transparent;
+            color: #d4a76a;
+            border: 2px solid #d4a76a;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .view-more-btn:hover, .hide-btn:hover { background-color: #d4a76a; color: white; }
+        .hide-btn { border-color: #8c6e5d; color: #8c6e5d; display: none; }
+        .hide-btn:hover { background-color: #8c6e5d; color: #fff; }
+        .hidden-items { display: none; }
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7); overflow-y: auto;
+        }
+        .modal-content {
+            background-color: #fff9f0; margin: 5% auto; padding: 30px; border-radius: 10px;
+            width: 80%; max-width: 700px; position: relative; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #5a3e2b; cursor: pointer; transition: color 0.3s; }
+        .close-modal:hover { color: #d4a76a; }
+        .modal-product { display: flex; flex-wrap: wrap; }
+        .modal-product-image { flex: 1; min-width: 300px; }
+        .modal-product-image img { width: 100%; border-radius: 8px; }
+        .modal-product-details { flex: 1; min-width: 300px; padding: 0 20px; }
+        .modal-product-details h2 { font-size: 28px; color: #5a3e2b; margin-bottom: 15px; }
+        .modal-product-details .price { font-size: 24px; margin-bottom: 15px; display: block; }
+        .modal-product-details p { margin-bottom: 20px; color: #5a3e2b; }
+        .modal-product-details ul { margin-bottom: 20px; padding-left: 20px; }
+        .modal-product-details ul li { margin-bottom: 5px; color: #5a3e2b; }
+        .order-now-btn {
+            background-color: #d4a76a; color: white; border: none; padding: 12px 30px; border-radius: 30px;
+            font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; display: inline-block; margin-top: 10px;
+        }
+        .order-now-btn:hover { background-color: #c0955a; }
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; }
+            .search-container { margin: 15px 0; width: 100%; justify-content: center; }
+            .search-bar { width: 70%; }
+            nav ul { margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+            nav ul li { margin: 5px 10px; }
+            .product-hero h1 { font-size: 36px; }
+            .modal-content { width: 95%; margin: 10% auto; padding: 15px; }
+            .modal-product-image, .modal-product-details { min-width: 100%; }
+            .modal-product-details { padding: 20px 0 0 0; }
+        }
+    </style>
+</head>
+<body>
+<div id="top">
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="sandieDelice.png" alt="Sandie Delice logo">
+                <div class="logo-text">
+                    <h1>Sandie Delice</h1>
+                    <p>Artisan Bakery • Buea, Cameroon</p>
+                </div>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search products...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="product.html">Product</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
+<section class="product-hero">
+    <div class="container product-hero-content">
+        <h1>Our Delicious Creations</h1>
+        <p>Handcrafted with love using the finest local ingredients</p>
+    </div>
+</section>
+
+<!-- Product Categories -->
+<section class="product-categories">
+    <div class="container">
+        <h2 class="section-title">Explore Our Categories</h2>
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="all">All Products</div>
+            <div class="category-tab" data-category="breads">Breads</div>
+            <div class="category-tab" data-category="pastries">Pastries</div>
+            <div class="category-tab" data-category="cakes">Cakes</div>
+            <div class="category-tab" data-category="juice">Natural Juice</div>
+            <div class="category-tab" data-category="seasonal">Seasonal</div>
+        </div>
+    </div>
+    <!-- Breads -->
+    <div class="container products-section" data-category="breads">
+        <h3 class="category-title">Artisan Breads</h3>
+        <div class="products-grid">
+            <div class="product-card" data-category="breads" onclick="openModal('country-loaf')">
+                <div class="product-badge">Bestseller</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Country Loaf">
+                </div>
+                <div class="product-info">
+                    <h3>Country Loaf</h3>
+                    <p>Traditional sourdough with perfect crust and airy interior</p>
+                    <div class="product-price">
+                        <span class="price">2,500 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="country-loaf-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('country-loaf')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Country Loaf">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Country Loaf</h2>
+                            <span class="price">2,500 XAF</span>
+                            <p>Traditional sourdough bread with a perfect, crackly crust and soft, airy interior. Made with locally milled flour, water, salt, and a natural starter.</p>
+                            <ul>
+                                <li>Ingredients: flour, water, salt, sourdough starter</li>
+                                <li>Best enjoyed fresh or toasted</li>
+                                <li>Pairs well with cheese, jams, and soups</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='order.html?item=country-loaf'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="breads" onclick="openModal('whole-wheat')">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Whole Wheat Bread">
+                </div>
+                <div class="product-info">
+                    <h3>Whole Wheat Bread</h3>
+                    <p>Nutritious and hearty with 100% whole grain flour</p>
+                    <div class="product-price">
+                        <span class="price">2,800 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="whole-wheat-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('whole-wheat')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Whole Wheat Bread">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Whole Wheat Bread</h2>
+                            <span class="price">2,800 XAF</span>
+                            <p>A hearty, nutritious bread crafted with 100% whole grain flour for a rich, earthy flavor and dense crumb. Loaded with fiber and nutrients.</p>
+                            <ul>
+                                <li>Ingredients: whole wheat flour, water, salt, yeast</li>
+                                <li>Great for sandwiches and healthy breakfasts</li>
+                                <li>No artificial preservatives</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='order.html?item=wheat.html'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="breads" onclick="openModal('baguette')">
+                <div class="product-badge">New</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Baguette">
+                </div>
+                <div class="product-info">
+                    <h3>French Baguette</h3>
+                    <p>Crispy crust with soft interior, perfect for sandwiches</p>
+                    <div class="product-price">
+                        <span class="price">1,800 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="baguette-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('baguette')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="French Baguette">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>French Baguette</h2>
+                            <span class="price">1,800 XAF</span>
+                            <p>Classic French bread with a golden, crispy crust and soft, fluffy interior. Perfect for sandwiches or as a table bread with spreads.</p>
+                            <ul>
+                                <li>Ingredients: wheat flour, water, salt, yeast</li>
+                                <li>Freshly baked daily</li>
+                                <li>Best eaten the same day</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='product-baguette.html'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- More breads can go here -->
+            <!-- Hidden breads (for View More) -->
+            <div class="product-card hidden-items" data-category="breads" onclick="openModal('rye-bread')">
+                <div class="product-badge">African Classic</div>
+                <div class="product-image">
+                    <img src="ryeBread.jpg" alt="Rye Bread">
+                </div>
+                <div class="product-info">
+                    <h3>Rye Bread</h3>
+                    <p>Dense and flavorful, made with rye flour</p>
+                    <div class="product-price">
+                        <span class="price">3,000 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card hidden-items" data-category="breads" onclick="openModal('cassava-bread')">
+                <div class="product-badge">African</div>
+                <div class="product-image">
+                    <img src="cassavaBread.jpg" alt="Cassava Bread">
+                </div>
+                <div class="product-info">
+                    <h3>Cassava Bread</h3>
+                    <p>Traditional Cameroonian cassava bread, gluten free</p>
+                    <div class="product-price">
+                        <span class="price">1,500 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more hidden breads as needed -->
+        </div>
+        <div class="view-more">
+            <button class="view-more-btn" data-category="breads">View More Breads</button>
+            <button class="hide-btn" data-category="breads">Hide</button>
+        </div>
+    </div>
+    <!-- Pastries -->
+    <div class="container products-section" data-category="pastries">
+        <h3 class="category-title">Pastries & Breakfast</h3>
+        <div class="products-grid">
+            <div class="product-card" data-category="pastries" onclick="openModal('meat-roll')">
+                <div class="product-badge">Popular</div>
+                <div class="product-image">
+                    <img src="meatRoll.jpg" alt="meat roll">
+                </div>
+                <div class="product-info">
+                    <h3>Meat Rolls</h3>
+                    <p>Flaky, golden perfection made with premium butter</p>
+                    <div class="product-price">
+                        <span class="price">500 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- MEAT ROLL MODAL -->
+            <div id="meat-roll-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('meat-roll')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="meatRoll.jpg" alt="Meat Roll">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Meat Rolls</h2>
+                            <span class="price">500 XAF</span>
+                            <p>Flaky, golden pastry filled with a savory blend of seasoned ground meat. A perfect snack or breakfast treat.</p>
+                            <ul>
+                                <li>Ingredients: flour, butter, eggs, beef, spices</li>
+                                <li>Fresh and filling</li>
+                                <li>Great with tea or coffee</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='order.html?item=meat-roll'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="pastries" onclick="openModal('sugar-balls')">
+                <div class="product-image">
+                    <img src="sugarBalls.jpg" alt="Sugar Balls">
+                </div>
+                <div class="product-info">
+                    <h3>Sugar Balls</h3>
+                    <p>Buttery pastry with premium chocolate filling</p>
+                    <div class="product-price">
+                        <span class="price">100 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- SUGAR BALLS MODAL -->
+            <div id="sugar-balls-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('sugar-balls')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="sugarBalls.jpg" alt="Sugar Balls">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Sugar Balls</h2>
+                            <span class="price">100 XAF</span>
+                            <p>Sweet, soft pastry balls dusted with sugar. A delightful treat for children and adults alike.</p>
+                            <ul>
+                                <li>Ingredients: flour, sugar, eggs, butter</li>
+                                <li>Perfect for parties and snacking</li>
+                                <li>Best enjoyed fresh</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='order.html?item=sugar-balls'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="pastries" onclick="openModal('fish-roll')">
+                <div class="product-image">
+                    <img src="fishRoll.jpg" alt="Fish Rolls">
+                </div>
+                <div class="product-info">
+                    <h3>Fish Rolls</h3>
+                    <p>Savory rolls with fresh fish filling and herbs</p>
+                    <div class="product-price">
+                        <span class="price">600 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- FISH ROLL MODAL -->
+            <div id="fish-roll-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('fish-roll')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="fishRoll.jpg" alt="Fish Roll">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Fish Rolls</h2>
+                            <span class="price">600 XAF</span>
+                            <p>Crispy rolls stuffed with a savory fish and herb filling. A classic Cameroonian favorite.</p>
+                            <ul>
+                                <li>Ingredients: flour, fish, spices, herbs, oil</li>
+                                <li>Delicious as a snack or light meal</li>
+                                <li>Pairs well with spicy sauce</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='product-fish-roll.html'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- More pastries can go here -->
+            <div class="product-card hidden-items" data-category="pastries" onclick="openModal('apple-turnover')">
+                <div class="product-badge">African</div>
+                <div class="product-image">
+                    <img src="appleTurnover.jpg" alt="Apple Turnover">
+                </div>
+                <div class="product-info">
+                    <h3>Apple Turnover</h3>
+                    <p>Flaky pastry with sweet apple filling</p>
+                    <div class="product-price">
+                        <span class="price">700 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card hidden-items" data-category="pastries" onclick="openModal('puff-puff')">
+                <div class="product-badge">African Classic</div>
+                <div class="product-image">
+                    <img src="puffpuff.jpg" alt="Puff Puff">
+                </div>
+                <div class="product-info">
+                    <h3>Puff Puff</h3>
+                    <p>Fried dough balls, a beloved Cameroonian street snack</p>
+                    <div class="product-price">
+                        <span class="price">200 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more hidden pastry products as needed -->
+        </div>
+        <div class="view-more">
+            <button class="view-more-btn" data-category="pastries">View More Pastries</button>
+            <button class="hide-btn" data-category="pastries">Hide</button>
+        </div>
+    </div>
+    <!-- Cakes -->
+    <div class="container products-section" data-category="cakes">
+        <h3 class="category-title">Cakes</h3>
+        <div class="products-grid">
+            <div class="product-card" data-category="cake" onclick="openModal('orange-cake')">
+                <div class="product-badge">Popular</div>
+                <div class="product-image">
+                    <img src="orangeCake.jpg" alt="orange cakes">
+                </div>
+                <div class="product-info">
+                    <h3>Orange Cake</h3>
+                    <p>Flaky, golden perfection made with premium butter</p>
+                    <div class="product-price">
+                        <span class="price">2000 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="orange-cake-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('orange-cake')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="orangeCake.jpg" alt="orange-cake">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Orange Cake</h2>
+                            <span class="price">2000 XAF</span>
+                            <p>Flaky, golden pastry filled with a savory blend of seasoned ground meat. A perfect snack or breakfast treat.</p>
+                            <ul>
+                                <li>Ingredients: flour, butter, eggs, beef, spices</li>
+                                <li>Fresh and filling</li>
+                                <li>Great with tea or coffee</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='product-orange-cake.html'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="cakes" onclick="openModal('chocolate-cake')">
+                <div class="product-image">
+                    <img src="chocolateCake.jpg" alt="chocolate-cake">
+                </div>
+                <div class="product-info">
+                    <h3>Chocolate Cake</h3>
+                    <p>Buttery pastry with premium chocolate filling</p>
+                    <div class="product-price">
+                        <span class="price">5000 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="chocolate-cake-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('chocolate-cake')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="chocolateCake.jpg" alt="chocolate cake">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Chocolate Cake</h2>
+                            <span class="price">5000 XAF</span>
+                            <p>Sweet, soft pastry balls dusted with sugar. A delightful treat for children and adults alike.</p>
+                            <ul>
+                                <li>Ingredients: flour, sugar, eggs, butter</li>
+                                <li>Perfect for parties and snacking</li>
+                                <li>Best enjoyed fresh</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='product-chocolate-cake.html'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="cakes" onclick="openModal('bento-cake')">
+                <div class="product-image">
+                    <img src="bentoCake.jpg" alt="bento cake">
+                </div>
+                <div class="product-info">
+                    <h3>Bento Cake</h3>
+                    <p>Savory rolls with fresh fish filling and herbs</p>
+                    <div class="product-price">
+                        <span class="price">10000 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="bento-cake-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal('bento-cake')">&times;</span>
+                    <div class="modal-product">
+                        <div class="modal-product-image">
+                            <img src="bentoCake.jpg" alt="Fish Roll">
+                        </div>
+                        <div class="modal-product-details">
+                            <h2>Bento Cake</h2>
+                            <span class="price">10000 XAF</span>
+                            <p>Crispy rolls stuffed with a savory fish and herb filling. A classic Cameroonian favorite.</p>
+                            <ul>
+                                <li>Ingredients: flour, fish, spices, herbs, oil</li>
+                                <li>Delicious as a snack or light meal</li>
+                                <li>Pairs well with spicy sauce</li>
+                            </ul>
+                            <button class="order-now-btn" onclick="window.location.href='product-bento-cake.html'">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Hidden cakes for View More -->
+            <div class="product-card hidden-items" data-category="cakes" onclick="openModal('banana-cake')">
+                <div class="product-badge">African</div>
+                <div class="product-image">
+                    <img src="bananaCake.jpg" alt="Banana Cake">
+                </div>
+                <div class="product-info">
+                    <h3>Banana Cake</h3>
+                    <p>Moist cake with ripe bananas, a family favorite in Cameroon</p>
+                    <div class="product-price">
+                        <span class="price">1800 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-more">
+            <button class="view-more-btn" data-category="cakes">View More Cakes</button>
+            <button class="hide-btn" data-category="cakes">Hide</button>
+        </div>
+    </div>
+    <div class="container products-section" data-category="juice">
+        <h3 class="category-title">Natural Juice</h3>
+        <div class="products-grid">
+            <div class="product-card" data-category="naturalJuice" onclick="openModal('orange-juice')">
+                <div class="product-badge">Popular</div>
+                <div class="product-image">
+                    <img src="orangeJuice.jpg" alt="orange juice">
+                </div>
+                <div class="product-info">
+                    <h3>Orange Juice</h3>
+                    <p>Fresh squeezed Cameroonian oranges</p>
+                    <div class="product-price">
+                        <span class="price">1500 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="naturalJuice" onclick="openModal('watermelon-juice')">
+                <div class="product-image">
+                    <img src="watermelon.png" alt="watermelon">
+                </div>
+                <div class="product-info">
+                    <h3>Watermelon Juice</h3>
+                    <p>Chilled, sweet watermelon juice</p>
+                    <div class="product-price">
+                        <span class="price">500 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="naturalJuice" onclick="openModal('pineapple-juice')">
+                <div class="product-image">
+                    <img src="pineappleJuice.jpg" alt="pineapple-juice">
+                </div>
+                <div class="product-info">
+                    <h3>Pineapple Juice</h3>
+                    <p>Sun-ripened pineapple, freshly juiced</p>
+                    <div class="product-price">
+                        <span class="price">1500 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Hidden juices for View More -->
+            <div class="product-card hidden-items" data-category="naturalJuice" onclick="openModal('bissap')">
+                <div class="product-badge">African</div>
+                <div class="product-image">
+                    <img src="bissapJuice.jpg" alt="Bissap Juice">
+                </div>
+                <div class="product-info">
+                    <h3>Bissap Juice</h3>
+                    <p>Hibiscus flower juice, tangy and refreshing</p>
+                    <div class="product-price">
+                        <span class="price">1000 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-more">
+            <button class="view-more-btn" data-category="juice">View More Juices</button>
+            <button class="hide-btn" data-category="juice">Hide</button>
+        </div>
+    </div>
+    <div class="container products-section" data-category="seasonal">
+        <h3 class="category-title">Seasonal</h3>
+        <div class="products-grid">
+            <!-- Add seasonal products here -->
+            <div style="color:#8c6e5d;">No seasonal items available yet.</div>
+            <!-- Hidden example for view more -->
+            <div class="product-card hidden-items" data-category="seasonal" onclick="openModal('yam-bread')">
+                <div class="product-badge">Seasonal</div>
+                <div class="product-image">
+                    <img src="yamBread.jpg" alt="Yam Bread">
+                </div>
+                <div class="product-info">
+                    <h3>Yam Bread</h3>
+                    <p>Bread made with local yam, soft and unique</p>
+                    <div class="product-price">
+                        <span class="price">2,000 XAF</span>
+                        <button class="add-to-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-more">
+            <button class="view-more-btn" data-category="seasonal">View More Seasonal</button>
+            <button class="hide-btn" data-category="seasonal">Hide</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Modal functionality
+    function openModal(productId) {
+        document.getElementById(productId + '-modal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(productId) {
+        document.getElementById(productId + '-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    window.onclick = function(event) {
+        if (event.target.classList && event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    };
+
+    // Category navigation
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const productsSections = document.querySelectorAll('.products-section');
+    function showAllSections() {
+        productsSections.forEach(sec => sec.style.display = '');
+    }
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            const cat = this.getAttribute('data-category');
+            if (cat === 'all') {
+                showAllSections();
+            } else {
+                productsSections.forEach(sec => {
+                    if (sec.getAttribute('data-category') === cat) {
+                        sec.style.display = '';
+                    } else {
+                        sec.style.display = 'none';
+                    }
+                });
+            }
+            window.scrollTo({ top: document.querySelector('.product-categories').offsetTop, behavior: 'smooth' });
+        });
+    });
+    // View More / Hide functionality for each category
+    document.querySelectorAll('.view-more').forEach(section => {
+        const viewMoreBtn = section.querySelector('.view-more-btn');
+        const hideBtn = section.querySelector('.hide-btn');
+        viewMoreBtn.addEventListener('click', function() {
+            const productsSection = this.closest('.products-section');
+            productsSection.querySelectorAll('.hidden-items').forEach(item => {
+                item.style.display = '';
+            });
+            hideBtn.style.display = '';
+            this.style.display = 'none';
+        });
+        hideBtn.addEventListener('click', function() {
+            const productsSection = this.closest('.products-section');
+            productsSection.querySelectorAll('.hidden-items').forEach(item => {
+                item.style.display = 'none';
+            });
+            viewMoreBtn.style.display = '';
+            this.style.display = 'none';
+        });
+    });
+    // Hide all hidden-items and hide buttons on initial load
+    document.querySelectorAll('.products-section').forEach(section => {
+        section.querySelectorAll('.hidden-items').forEach(item => {
+            item.style.display = 'none';
+        });
+        const hideBtn = section.querySelector('.hide-btn');
+        if (hideBtn) hideBtn.style.display = 'none';
+    });
+    // Search functionality (dummy)
+    document.querySelector('.search-btn').addEventListener('click', function() {
+        const searchTerm = document.querySelector('.search-bar').value.toLowerCase();
+        alert('Search functionality would search for: ' + searchTerm);
+    });
+</script>
+</body>
+</html>
